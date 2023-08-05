@@ -1,0 +1,12 @@
+
+
+.hvr {
+    padding: 7px 10px;
+    background-color: transparent;
+    color: #9d9d9d;
+    border: none;
+}
+
+.hvr:hover {
+    color: white;
+}
