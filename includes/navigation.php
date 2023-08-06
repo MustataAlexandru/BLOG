@@ -88,7 +88,7 @@
             <?php
 
 
-            if(!$_SESSION['user_role']) {
+            if(!isset($_SESSION['user_role'])) {
                 echo "<li><a href='login.php'>Autentificare</a></li>";
             } else if($_SESSION['user_role'] == 'subscriber') echo "<li><a href='logout.php'>Deconectare</a></li>"
 

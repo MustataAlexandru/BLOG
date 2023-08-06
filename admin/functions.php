@@ -15,9 +15,11 @@ function ifItIsMethod($method = null) {
 }
 
 function loginUser($username, $password) {
+
     global $connection;
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $username = trim($username);
+    $password = trim($password);
+
     $username = mysqli_real_escape_string($connection, $username);
     $password = mysqli_real_escape_string($connection, $password);
 
@@ -77,15 +79,15 @@ function checkIfUserIsLoggedInAndRedirect($redirectLocation = null) {
 
 function escape($string) {
     global $connection;
-   return mysqli_real_escape_string($connection , trim($string));
+    return mysqli_real_escape_string($connection , trim($string));
 }
 
 
 function confirmQuery($result) {
     global $connection;
-      if(!$result){
-          die('QUERY FAILED .' . mysqli_error($connection));
-      }
+    if(!$result){
+        die('QUERY FAILED .' . mysqli_error($connection));
+    }
 
 }
 
@@ -147,30 +149,30 @@ function deleteCategories() {
 function usersOnline () {
 
     if(isset($_GET['onlineusers'])) {
-    global $connection;
+        global $connection;
 
-    if(!$connection) {
-        session_start();
-        include("../includes/db.php");
+        if(!$connection) {
+            session_start();
+            include("../includes/db.php");
+        }
+
+        $session = session_id();
+        $time = time();
+        $time_out_in_seconds = 5;
+        $time_out = $time - $time_out_in_seconds;
+
+        $query = "SELECT * FROM users_online WHERE session = '{$session}'";
+        $send_query = mysqli_query($connection, $query);
+        $count = mysqli_num_rows($send_query);
+
+        if($count == NULL) {
+            mysqli_query($connection, "INSERT INTO users_online(session, time) VALUES( '$session', '$time')");
+        } else {
+            mysqli_query($connection, "UPDATE users_online SET time = '$time' WHERE session = '{$session}'");
+        }
+        $users_online_query = mysqli_query($connection,"SELECT * FROM users_online WHERE time > '$time_out'");
+        echo $count_user = mysqli_num_rows($users_online_query);
     }
-
-    $session = session_id();
-    $time = time();
-    $time_out_in_seconds = 5;
-    $time_out = $time - $time_out_in_seconds;
-
-    $query = "SELECT * FROM users_online WHERE session = '{$session}'";
-    $send_query = mysqli_query($connection, $query);
-    $count = mysqli_num_rows($send_query);
-
-    if($count == NULL) {
-        mysqli_query($connection, "INSERT INTO users_online(session, time) VALUES( '$session', '$time')");
-    } else {
-        mysqli_query($connection, "UPDATE users_online SET time = '$time' WHERE session = '{$session}'");
-    }
-    $users_online_query = mysqli_query($connection,"SELECT * FROM users_online WHERE time > '$time_out'");
-                 echo $count_user = mysqli_num_rows($users_online_query);
-}
 }
 usersOnline();
 
@@ -187,12 +189,12 @@ function is_admin($username) {
 }
 
 function username_exists($username) {
-  global $connection;
-  $query = "SELECT username FROM users WHERE username = '$username'";
-  $result = mysqli_query($connection, $query);
-  if(mysqli_num_rows($result) > 0) {
-      return true;
-  } else return false;
+    global $connection;
+    $query = "SELECT username FROM users WHERE username = '$username'";
+    $result = mysqli_query($connection, $query);
+    if(mysqli_num_rows($result) > 0) {
+        return true;
+    } else return false;
 }
 
 function email_exists($email) {

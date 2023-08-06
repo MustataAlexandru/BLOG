@@ -15,9 +15,11 @@ function ifItIsMethod($method = null) {
 }
 
 function loginUser($username, $password) {
+
     global $connection;
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $username = trim($username);
+    $password = trim($password);
+
     $username = mysqli_real_escape_string($connection, $username);
     $password = mysqli_real_escape_string($connection, $password);
 

@@ -1,8 +1,8 @@
 
 <?php  include "includes/header.php"; ?>
-<?php  include "admin/functions.php"?>
+<?php  include "includes/functions.php";?>
 
-<?php
+<?php global $connection;
 
 checkIfUserIsLoggedInAndRedirect('/CMS_TEMPLATE/index.php');
 
