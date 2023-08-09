@@ -6,7 +6,8 @@
       global $connection;
 
       $post_title = $_POST['title'];
-      $post_user = $_POST['post_user'];
+      $post_user = $_SESSION['username'];
+      $post_user_id = $_SESSION['user_id'];
       $post_category_id = $_POST['post_category_id'];
       $post_status = $_POST['post_status'];
       $post_image = $_FILES['image']['name'];
@@ -18,7 +19,7 @@
       $post_content = mysqli_real_escape_string($connection, $post_content);
       move_uploaded_file($post_image_temp, "../images/$post_image");
 
-      $query = "INSERT INTO posts(post_category_id, post_title, post_user, post_date, post_image,post_content,post_tags,post_status) VALUES ('{$post_category_id}','{$post_title}','{$post_user}',now(),'{$post_image}','{$post_content}', '{$post_tags}','{$post_status}') ";
+      $query = "INSERT INTO posts(post_category_id, post_title, post_user, post_date, post_image,post_content,post_tags,post_status, post_user_id) VALUES ('{$post_category_id}','{$post_title}','{$post_user}',now(),'{$post_image}','{$post_content}', '{$post_tags}','{$post_status}', {$post_user_id}) ";
 
 
       $create_post_query = mysqli_query($connection, $query);
@@ -35,7 +36,7 @@
 
     <div class="form-group">
         <label for="title">Numele Articolului</label>
-         <input type="text" class="form-control" name="title">
+         <input type="text" class="form-control" name="title" placeholder="Numele Articolului">
     </div>
 
 
@@ -43,7 +44,7 @@
         <select name="post_category_id" id="" class="form-control">
             <option value="Categorie">Categoria Articolului</option>
             <?php
-            $query = "SELECT * FROM categories ";
+            $query = "SELECT * FROM categories WHERE cat_user_id = {$_SESSION['user_id']}";
             $select_categories = mysqli_query($connection, $query);
             confirmQuery($select_categories);
 
@@ -57,28 +58,7 @@
         </select>
      </div>
 
-    <div class="form-group">
-        <label for="users">Utilizatori</label>
-        <select name="post_user" id="">
 
-            <?php
-
-            $query = "SELECT * FROM users";
-            $select_users = mysqli_query($connection, $query);
-            confirmQuery($select_users);
-
-            while($row = mysqli_fetch_assoc($select_users)) {
-                $user_id = $row['user_id'];
-                $username = $row['username'];
-                echo "<option value='$username'>{$username}</option>";
-            }
-
-            ?>
-
-
-
-        </select>
-    </div>
 
 <!--    <div class="form-group">-->
 <!--        <label for="title">Autorul Articolului</label>-->
@@ -102,13 +82,13 @@
 
     <div class="form-group">
         <label for="post_tags">Taguri</label>
-        <input type="text" class="form-control" name="post_tags">
+        <input type="text" class="form-control" name="post_tags" placeholder="Taguri">
     </div>
 
     <div class="form-group">
         <label for="title">
             Conţinutul</label>
-        <textarea class="form-control" name="post_content" id="summernote" cols="30" rows="10"></textarea>
+        <textarea class="form-control" name="post_content" id="summernote" cols="30" rows="10" ></textarea>
     </div>
 
     <div class="form-group">

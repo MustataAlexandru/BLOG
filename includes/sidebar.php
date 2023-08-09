@@ -1,12 +1,12 @@
 <?php include "functions.php";?>
-<div class="col-md-4">
+<div class="col-md-4" ">
 
 
 
 
 
     <!-- Blog Search Well -->
-    <div class="well">
+    <div class="well boxShadow">
 
         <form action="search.php" method="post">
         <div class="input-group">
@@ -36,7 +36,7 @@
     <?php if(!isset($_SESSION['username'])) {
         $unique_id = uniqid();
     echo"   
-        <div class='well' >
+        <div class='well boxShadow' >
         <h4 class='text-center' > Conecteaza-te</h4 >      
         <form action = 'login.php' method = 'post' >
             <div class='form-group' >
@@ -53,6 +53,11 @@
             </style >
             <div class='form-group'>
             <a href='forgot.php?forgot=$unique_id'><h4 class='text-center'>Ai uitat parola?</h4></a>
+            
+</div>
+  <div class='form-group'>
+            <a href='registration.php'><h4 class='text-center'>Mergi la inregistrare</h4></a>
+            
 </div>
              <div class='form-group'>
                 <button class='btn btn-primary button'  name = 'login' type = 'submit'>Login</button >
@@ -61,7 +66,7 @@
         </form >
     </div >";
 } else {
-        echo "<div class='well' >
+        echo "<div class='well boxShadow' >
         <h4 class='text-center' > Connectat ca: {$_SESSION['username']}</h4 >      
         <form action = 'logout.php' method = 'post' >
              <div class='form-group'>
@@ -88,7 +93,7 @@ $select_categories_sidebar = mysqli_query($connection , $query)
 
 
     <!-- Blog Categories Well -->
-    <div class="well">
+    <div class="well boxShadow">
         <h4 class="text-center">Categorii</h4>
         <div class="row">
             <div class="col-lg-12">

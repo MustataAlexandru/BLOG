@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well boxShadow" >
     <h4 class="text-center">Anunturi</h4>
     <?php
     global $connection;

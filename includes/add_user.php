@@ -10,6 +10,7 @@ if(isset($_POST['create_user'])) {
     $user_lastname = $_POST['user_lastname'];
     $user_role = $_POST['user_role'];
     $username = $_POST['username'];
+
     $user_email = mysqli_real_escape_string($connection, $_POST['user_email'] ) ;
     $user_password = mysqli_real_escape_string($connection, $_POST['user_password'] ) ;
     $options = ['cost' => 12,];

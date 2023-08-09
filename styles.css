@@ -1,4 +1,14 @@
+*{
+    box-sizing: border-box;
 
+}
+
+.navShadow{
+    -webkit-box-shadow: 1px 26px 22px -28px rgba(0,0,0,0.64);
+    -moz-box-shadow: 1px 26px 22px -28px rgba(0,0,0,0.64);
+    box-shadow: 1px 26px 22px -28px rgba(0,0,0,0.64);
+
+}
 
 .hvr {
     padding: 7px 10px;
@@ -9,4 +19,47 @@
 
 .hvr:hover {
     color: white;
+}
+
+ion-icon {font-size: 25px;}
+
+.ion {
+    position: absolute;
+    top:40%;
+    left: 175%;
+}
+
+.flexContainer {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    border: 1px solid #e3e3e3;
+    padding: 40px;
+    box-shadow: 8px 7px 4px 4px rgba(0,0,0,0.1);
+
+}
+.boxShadow {
+    box-shadow: -6px 7px 8px -4px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.commentContainer {
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    display: flex;
+    margin-bottom: 3rem;
+
+}
+
+.flex1 {
+    padding-right: 10px;
+    border-right: 1px solid #e5e5e5;
+    align-self: center;
+
+}
+
+.profileImg {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+
 }

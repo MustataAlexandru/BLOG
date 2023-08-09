@@ -1,7 +1,8 @@
 {
     "name": "umbrr/cms_template",
     "require": {
-        "phpmailer/phpmailer": "^6.8"
+        "phpmailer/phpmailer": "^6.8",
+      "ext-mysqli": "*"
     },
     "autoload": {
         "psr-4": {

@@ -8,11 +8,7 @@ use PHPMailer\PHPMailer\SMTP; ?>
 require './vendor/autoload.php';
 //require './Classes/config.php';
 
-
-
-
 global $connection;
-
 if(!isset($_GET['forgot'])) {
     redirect('index.php');
 }

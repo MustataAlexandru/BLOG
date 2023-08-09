@@ -1,15 +1,6 @@
 
 <?php include 'includes/admin_header.php' ?>
 
-<?php
-
-if(!is_admin($_SESSION['username'])) {
-    header("Location: ../index.php");
-}
-
-?>
-
-
 <div id="wrapper">
 
 
@@ -43,16 +34,16 @@ if(!is_admin($_SESSION['username'])) {
                     }
 
                     switch($source) {
-                        case 'add_user';
-                            include '../includes/add_user.php';
+                        case 'add_post';
+                            include '../includes/add_post.php';
                             break;
 
-                        case 'edit_user';
-                            include '../includes/edit_user.php';
+                        case 'edit_post';
+                            include '../includes/edit_post.php';
                             break;
 
                         default:
-                            include 'includes/view_all_users.php';
+                            include 'includes/view_all_sub_comments.php';
 
 
 

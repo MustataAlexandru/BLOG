@@ -1,6 +1,6 @@
  <!-- Navigation -->
 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top navShadow" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -15,16 +15,15 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-<li>
-                <div class="btn-group hvr ">
 
-                    <a class="btn dropdown-toggle hvr" style="background-color: transparent; color: #9d9d9d;border: none;" data-toggle="dropdown" href="#"; >
-                        Categorii
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
 
-                        <?php include 'db.php';
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Categorii <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+
+
+                        <?php
                 global $connection;
            $query = "SELECT * FROM categories";
            $select_all_categories_query = mysqli_query($connection , $query);
@@ -41,21 +40,13 @@
                 }
                 ?>
                     </ul>
-                </div>
+
+
     </li>
 
 
 
-                <?php
 
-                if(isset($_SESSION['user_role'])) {
-                    if(isset($_GET['p_id'])){
-                        $the_post_id = $_GET['p_id'];
-                        echo"<li><a href='admin/posts.php?source=edit_post&p_id={$the_post_id}'>Editeaza Postare</a></li>";
-                    }
-                }
-
-                ?>
 
                 <li>
                     <a href='contact.php'>Contact</a>
@@ -78,21 +69,54 @@
                     if(isset($_SESSION['user_role'])){
                         $user_role = $_SESSION['user_role'];
                         if($user_role === 'admin') {
-                            echo "<a style='position: absolute; top: 40%;' href='admin/index.php'>Admin</a>";
-                        }
+                            echo "<li><a href='admin/index.php'>Admin</a></li>";
+                        } else echo "<li><a href='admin/dashboard.php'>Panou de control</a></li>";
                     }
 
                     ?>
 
                 </li>
             <?php
-
-
             if(!isset($_SESSION['user_role'])) {
                 echo "<li><a href='login.php'>Autentificare</a></li>";
-            } else if($_SESSION['user_role'] == 'subscriber') echo "<li><a href='logout.php'>Deconectare</a></li>"
-
+            }
             ?>
+
+
+                            <?php if($_SESSION['user_role'] =='admin'):?>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><ion-icon class="ion" name="person-circle-outline"></ion-icon></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="admin/profile.php"><i class="fa fa-fw fa-user"></i> Profil</a>
+                                        </li>
+
+
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="../logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php elseif($_SESSION['user_role']=='subscriber'):?>
+                                <li class="dropdown ion">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><ion-icon  name="person-circle-outline"></ion-icon></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="admin/sub_profile.php"><i class="fa fa-fw fa-user"></i> Profil</a>
+                                        </li>
+
+
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
+
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

@@ -10,7 +10,7 @@
 global $connection;
 
 if(isset($_POST['submit'])) {
-    $to = 'ofdolj@anfof.ro';
+    $to = 'mustata.alexandru.cristian@gmail.com';
     $header   =  $_POST['email'];
     $headers =  'MIME-Version: 1.0' . "\r\n";
     $headers .= "From: Your name <{$header}>" . "\r\n";
@@ -31,8 +31,8 @@ if(isset($_POST['submit'])) {
         <div class="container">
             <div class="row">
                 <div class="col-xs-6 col-xs-offset-3">
-                    <div class="form-wrap">
-                        <h1 class="text-center">Contact</h1>
+                    <div class="form-wrap flexContainer">
+                        <h2 class="text-center">Trimite un email</h2>
                         <form role="form" action="contact.php" method="post" id="login-form" autocomplete="off">
 
                                 <div class="form-group">

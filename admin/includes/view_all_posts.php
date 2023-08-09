@@ -3,6 +3,11 @@ global $connection;
 
 include "delete_modal.php";
 
+if($_SESSION['user_role'] == 'subscriber') {
+    redirect('sub_posts.php');
+} else if (!isset($_SESSION['user_role'])) {redirect('../index.php');
+}
+
 if(isset($_POST['submit'])){
 
     foreach($_POST['checkBoxArray'] as $postValueId){
@@ -164,7 +169,7 @@ if(isset($_POST['submit'])){
         echo "<td>$post_views_count</td>";
         echo "<td><a href='../post.php?p_id=$post_id'>Vezi postarea</a></td>";
         echo "<td><a href='posts.php?source=edit_post&p_id=$post_id'>Editeaza</a></td>";
-        echo "<td><a rel='$post_id' href='' class='delete_link'>Sterge</a></td>";
+        echo "<td><a rel='$post_id' href='#' class='delete_link'>Sterge</a></td>";
         echo "</tr>";
     }
 
@@ -203,8 +208,8 @@ if(isset($_GET['delete'])) {
         $('.delete_link').on('click', function(e) {
             e.preventDefault();
             var id = $(this).attr('rel');
-            var delete_url = "posts.php?delete="+ id +" ";
-            $(".checkBoxes").attr("href", delete_url);
+            var delete_url = "posts.php?delete=" + id +" ";
+            $(".modal_delete_link").attr("href", delete_url);
             $('#myModal').modal('show');
 
         });

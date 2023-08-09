@@ -1,11 +1,11 @@
-<?php global $connection;
+<?php
 include 'includes/header.php' ?>
 
 
 <?php include 'includes/navigation.php' ?>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="margin-top: 5rem">
 
         <div class="row">
 
@@ -38,7 +38,7 @@ include 'includes/header.php' ?>
 
                 $count = ceil($posts_count / $per_page);
 
-                 $query = "SELECT * FROM posts LIMIT $page_1,$per_page";
+                 $query = "SELECT * FROM posts ORDER BY post_id DESC LIMIT $page_1,$per_page ";
                  $select_all_posts_query = mysqli_query($connection , $query);
 
                 while($row = mysqli_fetch_assoc($select_all_posts_query)){
@@ -49,11 +49,9 @@ include 'includes/header.php' ?>
                     $post_image = $row['post_image'];
                     $post_content = substr($row['post_content'], 0,100);
                     $post_status = $row['post_status'];
-
                     if($post_status !== 'published') {
 
-                        echo "<div class='form-group' style='border: 1px solid #f5f5f5;padding: 20px;border-radius: 10px;-webkit-box-shadow: 0px 3px 21px -5px #000000; 
-box-shadow: 0px 3px 21px -5px #000000;background-color: #f5f5f5;'><h4>  {$post_author} lucreaza la o postare '${post_title}'. </h4></div>";
+                        echo "<div class='form-group' style='border: 1px solid #f5f5f5;padding: 20px;border-radius: 10px;box-shadow: -6px 7px 8px -4px rgba(0,0,0,0.1);background-color:#f5f5f5;background-color: #f5f5f5;'><h4>  {$post_author} lucreaza la o postare '${post_title}'. </h4></div>";
 
                     } else {
                     ?>
@@ -63,7 +61,8 @@ box-shadow: 0px 3px 21px -5px #000000;background-color: #f5f5f5;'><h4>  {$post_a
 <!--                    </h1>-->
 
                     <!-- First Blog Post -->
-                    <h2>
+                <div style='margin-bottom: 25px;border: 1px solid #f5f5f5;padding: 20px;border-radius: 5px;box-shadow: -6px 7px 8px -4px rgba(0,0,0,0.1);background-color:#f5f5f5;'>
+                    <h2 class="text-center">
                         <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
                     </h2>
                     <p class="lead">
@@ -72,12 +71,12 @@ box-shadow: 0px 3px 21px -5px #000000;background-color: #f5f5f5;'><h4>  {$post_a
                     <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?></p>
                     <hr>
                 <a href = "post.php?p_id=<?php echo $post_id?>">
-                    <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="" >
+                    <img class="img-responsive img" src="images/<?php echo $post_image ?>" alt="image" >
                 </a>
                     <hr>
                     <p><?php echo $post_content ?></p>
-                    <a class="btn btn-primary" style="border:none" href="post.php?p_id=<?php echo $post_id;?>">Citeste <span class="glyphicon glyphicon-chevron-right"></span></a>
-
+                    <a class="btn btn-primary" style="border:none background-color: grey;" href="post.php?p_id=<?php echo $post_id;?>">Citeste mai mult<span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
                     <?php
                     }
                 }

@@ -18,12 +18,8 @@
     <tbody>
 
     <?php
-    if($_SESSION['user_role'] == 'subscriber') {
-        redirect('sub_comments.php');
-    } else if (!isset($_SESSION['user_role'])) {redirect('../index.php');
-    }
     global $connection;
-    $query = "SELECT * FROM comments";
+    $query = "SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE post_user_id=".loggedInUserId()."";
     $select_posts = mysqli_query($connection , $query);
 
     while ($row = mysqli_fetch_assoc($select_posts)) {
@@ -66,9 +62,9 @@
 
 
         echo "<td> $comment_date</td>";
-        echo "<td><a href='comments.php?approve=$comment_id'>Aproba</a></td>";
-        echo "<td><a href='comments.php?unapprove=$comment_id'>Declin</a></td>";
-        echo "<td><a href='comments.php?delete=$comment_id'>Sterge</a></td>";
+        echo "<td><a href='sub_comments.php?approve=$comment_id'>Aproba</a></td>";
+        echo "<td><a href='sub_comments.php?unapprove=$comment_id'>Declin</a></td>";
+        echo "<td><a href='sub_comments.php?delete=$comment_id'>Sterge</a></td>";
         echo "</tr>";
     }
 
@@ -82,6 +78,17 @@
 </table>
 
 <?php
+
+//
+//if($_SESSION['user_role'] == 'subscriber') {
+//    redirect('sub_comments.php');
+//} else if (!isset($_SESSION['user_role'])) {redirect('../index.php');
+//}
+
+if(!isset($_SESSION['user_role'])) {
+    redirect('index.php');
+}
+
 
 if(isset($_GET['approve'])) {
 

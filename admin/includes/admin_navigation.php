@@ -36,32 +36,21 @@ $count_user = mysqli_num_rows($users_online_query);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php">Admin</a>
+
+        <a class='navbar-brand' href='../index.php'>Pagina principala</a>
     </div>
 
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav nav-flex">
-        <li>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <p class="navbar-brand">  Utilizatori online: <span class="usersonline"></span> </p>
-            </div>
-        </li>
-        <li>
-            <a href="../index.php">Pagina principala</a>
-        </li>
+
+
 
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['firstname'];?> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="profile.php"><i class="fa fa-fw fa-user"></i> Profil</a>
+                    <a href="sub_profile.php"><i class="fa fa-fw fa-user"></i> Profil</a>
                 </li>
 
 
@@ -75,12 +64,16 @@ $count_user = mysqli_num_rows($users_online_query);
 
 
 
-    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
 
             <li>
-                <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Panou de control </a>
+                <?php if(($_SESSION['user_role']) === 'admin') echo "<a href='index.php'><i class='fa fa-fw fa-dashboard'></i> Panou de control </a>";
+                else echo "<a href='dashboard.php'><i class='fa fa-fw fa-dashboard'></i> Statistici </a>";
+                ?>
+
+
             </li>
 
 
@@ -89,22 +82,43 @@ $count_user = mysqli_num_rows($users_online_query);
                 <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Articole <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="posts_dropdown" class="collapse">
                     <li>
-                        <a href="./posts.php">Vezi Articolele</a>
+                        <?php if($_SESSION['user_role'] === 'admin')echo "<a href='./posts.php'>Vezi Articolele</a>";
+                        else echo "<a href='./sub_posts.php'>Vezi Articolele</a>";
+                        ?>
+
                     </li>
+                    <?php if ($_SESSION['user_role'] === 'admin'): ?>
                     <li>
                         <a href="posts.php?source=add_post">Adauga Articole</a>
                     </li>
+                    <?php elseif($_SESSION['user_role'] === 'subscriber'): ?>
+                    <li>
+                        <a href="sub_posts.php?source=add_post">Adauga Articole</a>
+                    </li>
+                    <?php endif ?>
                 </ul>
             </li>
+            <?php if ($_SESSION['user_role'] === 'admin'): ?>
             <li>
-                <a href="categories.php"><i class="fa fa-fw fa-wrench"></i> Categorii</a>
+                <a href="categories.php"><i class="fa fa-fw fa-wrench"></i>Categorii</a>
             </li>
-
+            <?php elseif ($_SESSION['user_role'] ==='subscriber'): ?>
+            <li>
+                <a href="sub_categories.php"><i class="fa fa-fw fa-wrench"></i>Categorii</a>
+            </li>
+            <?php endif; ?>
+            <?php if ($_SESSION['user_role'] === 'admin'): ?>
             <li class="">
-                <a href="comments.php"><i class="fa fa-fw fa-file"></i> Comentarii </a>
+                <a href="comments.php"><i class="fa fa-fw fa-file"></i>Comentarii</a>
             </li>
+            <?php elseif ($_SESSION['user_role'] === 'subscriber'): ?>
+            <li class="">
+                <a href="sub_comments.php"><i class="fa fa-fw fa-file"></i>Comentarii</a>
+            </li>
+            <?php endif; ?>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Utilizatori <i class="fa fa-fw fa-caret-down"></i></a>
+                <?php if($_SESSION['user_role'] ==='admin'): ?>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>Utilizatori<i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
                         <a href="users.php">Vezi toti utilizatorii</a>
@@ -114,10 +128,16 @@ $count_user = mysqli_num_rows($users_online_query);
                     </li>
                 </ul>
             </li>
+            <?php endif; ?>
+            <?php if($_SESSION['user_role'] ==='admin'): ?>
             <li class="">
                 <a href="profile.php"><i class="fa fa-fw fa-file"></i> Profil </a>
             </li>
-
+            <?php elseif($_SESSION['user_role'] ==='subscriber'): ?>
+                <li class="">
+                    <a href="sub_profile.php"><i class="fa fa-fw fa-file"></i> Profil </a>
+                </li>
+            <?php endif;?>
         </ul>
     </div>
     <!-- /.navbar-collapse -->

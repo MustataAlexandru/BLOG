@@ -1,5 +1,7 @@
-<?php global $connection;
-include 'includes/header.php' ?>
+<?php
+include 'includes/header.php';
+global $connection;
+?>
 
 
 <?php include 'includes/navigation.php' ?>
@@ -44,6 +46,7 @@ include 'includes/header.php' ?>
 
 
                     <!-- First Blog Post -->
+                <div style='margin-bottom: 25px;border: 1px solid #f5f5f5;padding: 20px;border-radius: 5px;box-shadow: -6px 7px 8px -4px rgba(0,0,0,0.1);background-color:#f5f5f5;'>
                     <h2>
                         <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
                     </h2>
@@ -55,7 +58,7 @@ include 'includes/header.php' ?>
                     <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="" >
                     <hr>
                     <p><?php echo $post_content ?></p>
-
+                </div>
 
                     <?php
 

@@ -5,7 +5,7 @@ include 'includes/header.php' ?>
 <?php include 'includes/navigation.php' ?>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="margin-top: 5rem">
 
         <div class="row">
 
@@ -47,6 +47,7 @@ include 'includes/header.php' ?>
 
 
                     <!-- First Blog Post -->
+                <div style='margin-bottom: 25px;border: 1px solid #f5f5f5;padding: 20px;box-shadow: -6px 7px 8px -4px rgba(0,0,0,0.1);background-color:#f5f5f5;'>
                     <h2>
                         <a href="post.php?p_id=<?php echo $p_id; ?>"><?php echo $post_title ?></a>
                     </h2>
@@ -59,7 +60,7 @@ include 'includes/header.php' ?>
                     <hr>
                     <p><?php echo $post_content ?></p>
                     <a class="btn btn-primary" href="post.php?p_id=<?php echo $p_id; ?>">Citeste <span class="glyphicon glyphicon-chevron-right"></span></a>
-
+                </div>
                     <?php
 
                 }

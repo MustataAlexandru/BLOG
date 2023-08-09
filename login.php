@@ -3,14 +3,15 @@
 <?php  include "includes/functions.php";?>
 
 <?php global $connection;
-
+class CustomException extends Exception {
+    // Additional properties or methods if needed
+}
 checkIfUserIsLoggedInAndRedirect('/CMS_TEMPLATE/index.php');
 
 if(ifItIsMethod('post')) {
     if(isset($_POST['username']) && isset($_POST['password'])){
-        loginUser($_POST['username'], $_POST['password']);
-    } else redirect('/CMS_TEMPLATE/login.php');
-
+       loginUser($_POST['username'], $_POST['password']);
+    }
 }
 
 
