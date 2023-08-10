@@ -1,16 +1,21 @@
  <!-- Navigation -->
 
 <nav class="navbar navbar-inverse navbar-fixed-top navShadow" role="navigation">
+
     <div class="container">
+
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
+
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./index.php">Pagina principala</a>
+            <a class="navbar-brand" style="position: sticky" href="index.php" >
+                <img  src="../images/logo/logo.png" alt ='logo' class="logo"/>
+            </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -83,7 +88,7 @@
             ?>
 
 
-                            <?php if($_SESSION['user_role'] =='admin'):?>
+                            <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role'] =='admin'):?>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><ion-icon class="ion" name="person-circle-outline"></ion-icon></a>
                                     <ul class="dropdown-menu">
@@ -98,7 +103,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                            <?php elseif($_SESSION['user_role']=='subscriber'):?>
+                            <?php elseif(isset($_SESSION['user_role']) && $_SESSION['user_role'] =='subscriber'):?>
                                 <li class="dropdown ion">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><ion-icon  name="person-circle-outline"></ion-icon></a>
                                     <ul class="dropdown-menu">

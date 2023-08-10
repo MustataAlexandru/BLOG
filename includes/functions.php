@@ -393,7 +393,9 @@ function loginUser($username, $password) {
 
     $query = "SELECT * FROM users WHERE username = '{$username}'";
     $select_user_query = mysqli_query($connection, $query);
-    if(!$select_user_query)die('QUERY FAILED!'. mysqli_error($connection));
+    if (mysqli_num_rows($select_user_query) == 0)  {
+        echo "<h1 class='text-center' style='color:red; padding-top: 10px'> Username sau parola gresite!</h1>";
+    }
 
     while($row = mysqli_fetch_array($select_user_query)) {
         $db_user_email = $row['user_email'];
@@ -425,9 +427,11 @@ function loginUser($username, $password) {
 //        header("Location: index.php");
 
         }
-        else {
+        else if(!password_verify($password,$db_user_password)){
             echo"<h1 class='text-center' style='color:red; padding-top: 10px'> Username sau parola gresite!</h1>" ;
         }
+
+
     }
 
 

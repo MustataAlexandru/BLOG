@@ -15,11 +15,13 @@ if(!isset($_GET['forgot'])) {
 
 if(ifItIsMethod('post')) {
     if(isset($_POST['email'])) {
-
+        $username = $_POST['username'];
         $email = $_POST['email'];
         $length = 50;
         $token = bin2hex(openssl_random_pseudo_bytes($length));
-        if(email_exists($email)) {
+        $query = "SELECT * FROM users where user_email = '{$email}' AND username = '{$username}'";
+        $submit_query = mysqli_query($connection, $query);
+        if($result = mysqli_num_rows($submit_query) !== 0) {
             if($stmt = mysqli_prepare($connection , "UPDATE users SET token='{$token}' WHERE user_email = ?")){
             mysqli_stmt_bind_param($stmt,'s', $email);
             mysqli_stmt_execute($stmt);
@@ -29,28 +31,36 @@ if(ifItIsMethod('post')) {
                 $mail = new PHPMailer(true);
 //                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();
+                $mail->Mailer ='smtp';
                 $mail->SMTPAuth   = true;
-                $mail->Host       = Configuration::SMTP_HOST;
-                $mail->Port       = Configuration::SMTP_PORT;
-                $mail->Username   = Configuration::SMTP_USER;
-                $mail->Password   = Configuration::SMTP_PASSWORD;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->Port       = 587;
+                $mail->Username   = 'mustata.alexandru.cristian@gmail.com';
+                $mail->Password   = 'qkpokdmmfilwgyta';
+
                 $mail->isHTML(true);
-                $mail->setFrom('resetpassword@support.ro' , 'Mustata Alexandru');
-                $mail->addAddress($email);
+                try {
+                    $mail->setFrom('resetpassword@support.ro', 'Mustata Alexandru');
+                } catch (\PHPMailer\PHPMailer\Exception $e) { echo $e;
+                }
+                try {
+                    $mail->addAddress($email, $username);
+                } catch (\PHPMailer\PHPMailer\Exception $e) { echo $e;
+                }
                 $mail->Subject = 'Reset password';
                 $mail->Body = '<p>Please click to reset your password
-<a href="http://localhost:63342/CMS_TEMPLATE/reset.php?email='.$email.'&token='.$token.'">http://localhost:63342/CMS_TEMPLATE/reset.php?email='.$email.'&token='.$token."  ". '</a>
+<a href="https://studentii.lol/reset.php?email='.$email.'&token='.$token.'">https://studentii.lol/reset.php?email='.$email.'&token='.$token."  ". '</a>
 </p>';
                    if($mail->send()) {
 
                        $emailSent = true;
 
-                   } else echo 'NOT SENT';
+                   }
             }
 
         }
-
+        else echo '<h1 class="text-center" style="color: red;">Nu s-a gasit un cont cu email-ul si username-ul introduse.</h1>';
     }
 }
 
@@ -80,11 +90,17 @@ if(ifItIsMethod('post')) {
 
 
                                     <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                                <input id="email" name="username" placeholder="username" class="form-control"  type="text">
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                                <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                                                <input id="email" name="email" placeholder="adresa de email" class="form-control"  type="email">
                                             </div>
                                         </div>
                                         <div class="form-group">

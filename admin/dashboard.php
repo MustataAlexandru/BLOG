@@ -78,7 +78,7 @@ include 'includes/admin_header.php' ?>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <?php
-                                    $query = "SELECT * FROM comments";
+                                    $query = "SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE post_user_id=".loggedInUserId()."";
                                     $select_comments_query = mysqli_query($connection,$query);
                                     $comment_counts = mysqli_num_rows($select_comments_query);
                                     echo "<div class='huge'> {$comment_counts}</div>";

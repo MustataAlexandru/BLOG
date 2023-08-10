@@ -9,9 +9,21 @@ include 'includes/header.php' ?>
 
         <div class="row">
 
+
             <!-- Blog Entries Column -->
             <div class="col-md-8">
-
+                <div class="well boxShadow" >
+                    <form action="search.php" method="post">
+                        <div class="input-group">
+                            <input name="search" type="text" class="form-control">
+                            <span class="input-group-btn">
+                            <button name="submit" class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+                        </div>
+                    </form>
+                </div>
                 <?php
 
                 $per_page = 10;
@@ -91,7 +103,8 @@ include 'includes/header.php' ?>
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
-<?php include 'includes/sidebar.php'?>
+            <?php include 'includes/sidebar.php'?>
+
 
             </div>
 

@@ -37,15 +37,17 @@ $count_user = mysqli_num_rows($users_online_query);
             <span class="icon-bar"></span>
         </button>
 
-        <a class='navbar-brand' href='../index.php'>Pagina principala</a>
+        <a class='navbar-brand' href='../index.php'><img src="../../images/logo/logo.png" style="height: 36px;" alt="logo"></a>
     </div>
 
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav nav-flex">
 
-
-
-
+<?php if($_SESSION['user_role'] =='admin'): ?>
+ <li>
+     <p>Utilizatori ONLINE: <?php echo $count_user;?></p>
+ </li>
+<?php endif; ?>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['firstname'];?> <b class="caret"></b></a>
             <ul class="dropdown-menu">
